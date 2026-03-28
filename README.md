@@ -2,7 +2,7 @@
 <h1>
   Oxide Editor
   
-  [![Build Status](https://img.shields.io/github/actions/workflow/status/oxide-editor/oxide/ci.yml?branch=main&style=flat-square&logo=github)](https://github.com/oxide-editor/oxide/actions)
+  [![Build Status](https://img.shields.io/github/actions/workflow/status/oxide-editor/oxide/ci.yml?branch=prod&style=flat-square&logo=github)](https://github.com/oxide-editor/oxide/actions)
   [![Stars](https://img.shields.io/github/stars/oxide-editor/oxide?style=flat-square&logoColor=white)](https://github.com/oxide-editor/oxide/stargazers)
   [![Forks](https://img.shields.io/github/forks/oxide-editor/oxide?style=flat-square&logoColor=white)](https://github.com/oxide-editor/oxide/network/members)
   [![Pull Requests](https://img.shields.io/github/issues-pr/oxide-editor/oxide?style=flat-square&logoColor=white)](https://github.com/oxide-editor/oxide/pulls)
