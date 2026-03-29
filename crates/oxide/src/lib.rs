@@ -18,8 +18,11 @@
 
 pub mod app;
 
+use std::io::Cursor;
+
 use app::OxideApp;
-use iced::Task;
+use iced::{Task, window::{self, Icon}};
+use image::ImageReader;
 
 pub fn run() -> iced::Result {
     iced::application(
@@ -28,5 +31,24 @@ pub fn run() -> iced::Result {
         OxideApp::view,
     )
     .title(|_: &OxideApp| "Oxide".to_string())
+    .window(window::Settings {
+        min_size: Some(iced::Size::new(600.0, 700.0)),
+        icon: load_icon(),
+        ..window::Settings::default()
+    })
     .run()
+}
+
+fn load_icon() -> Option<Icon> {
+    let png_bytes = include_bytes!("../../../assets/icon.png");
+
+    let img = ImageReader::new(Cursor::new(png_bytes))
+        .with_guessed_format()
+        .ok()?
+        .decode()
+        .ok()?
+        .into_rgba8();
+    
+    let (width, height) = img.dimensions();
+    window::icon::from_rgba(img.into_raw(), width, height).ok()
 }
