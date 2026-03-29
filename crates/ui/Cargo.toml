@@ -1,6 +1,0 @@
-[package]
-name = "oxide-ui"
-edition = "2024"
-
-[dependencies]
-iced = "0.14.0"

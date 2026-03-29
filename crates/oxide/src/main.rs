@@ -16,33 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-use iced::widget::text;
-use iced::{Element, Task};
+// Prevents the additional console window on Windows in release builds, DO NOT REMOVE!
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-// run the ui application
-pub fn run() -> iced::Result {
-    iced::application(
-        || (OxideApp::default(), Task::none()),
-        OxideApp::update,
-        OxideApp::view,
-    )
-    .title(|_: &OxideApp| String::from("Oxide"))
-    .run()
-}
+use oxide::run;
 
-#[derive(Default)]
-struct OxideApp;
-
-#[derive(Debug, Clone)]
-enum Message {}
-
-impl OxideApp {
-    // update app state
-    fn update(&mut self, _message: Message) -> Task<Message> {
-        Task::none() // no operation for now
-    }
-
-    fn view(&self) -> Element<'_, Message> {
-        text("Hello, world!").into()
+fn main() {
+    // attempt to run the ui application
+    if let Err(e) = run() {
+        eprintln!("failed to initialize: {e:?}");
+        std::process::exit(1);
     }
 }

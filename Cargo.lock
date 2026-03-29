@@ -2138,13 +2138,6 @@ dependencies = [
 name = "oxide"
 version = "0.1.0"
 dependencies = [
- "oxide-ui",
-]
-
-[[package]]
-name = "oxide-ui"
-version = "0.0.0"
-dependencies = [
  "iced",
 ]
 

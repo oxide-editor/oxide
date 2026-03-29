@@ -16,15 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Prevents the additional console window on Windows in release builds, DO NOT REMOVE!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+pub mod app;
 
-use oxide_ui as ui;
+use app::OxideApp;
+use iced::Task;
 
-fn main() {
-    // attempt to run the ui application
-    if let Err(e) = ui::run() {
-        eprintln!("oxide_ui failed to initialize: {e:?}");
-        std::process::exit(1);
-    }
+pub fn run() -> iced::Result {
+    iced::application(
+        || (OxideApp::default(), Task::none()),
+        OxideApp::update,
+        OxideApp::view,
+    )
+    .title(|_: &OxideApp| "Oxide".to_string())
+    .run()
 }
