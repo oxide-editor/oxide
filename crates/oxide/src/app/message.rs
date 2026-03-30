@@ -16,9 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-use oxide_core::input::Command;
+use iced::widget::text_editor;
 
 #[derive(Debug, Clone)]
 pub enum Message {
-    Input(Command),
+    Edit(text_editor::Action)
 }

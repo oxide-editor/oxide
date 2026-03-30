@@ -18,28 +18,30 @@
 
 use iced::{
     Element,
-    widget::{container, text},
+    widget::{container, text_editor},
 };
-
-use oxide_core::editor::Editor as CoreEditor;
 
 use crate::app::message::Message;
 
 pub struct EditorView<'a> {
-    editor: &'a CoreEditor,
+    content: &'a text_editor::Content,
 }
 
 impl<'a> EditorView<'a> {
-    pub fn new(editor: &'a CoreEditor) -> Self {
-        Self { editor }
+    pub fn new(content: &'a text_editor::Content) -> Self {
+        Self { content }
     }
 
     pub fn view(self) -> Element<'a, Message> {
-        // for now lets just render the raw buffer
-        // later we will implement lines, cursor, and whatever else
-        println!("{}", self.editor.buffer.as_str());
-        container(text(self.editor.buffer.as_str()))
-            .padding(10)
-            .into()
+        container(
+            text_editor(self.content)
+                .on_action(Message::Edit)
+                .style(|theme, status| {
+                    let mut style = iced::widget::text_editor::default(theme, status);
+                    style.border = iced::Border::default();
+                    style
+                }),
+        )
+        .into()
     }
 }

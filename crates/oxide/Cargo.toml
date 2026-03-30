@@ -6,7 +6,6 @@ edition = "2024"
 [dependencies]
 iced = "0.14.0"
 image = "0.25.10"
-oxide-core = { path = "../core" }
 
 [build-dependencies]
 winres = "0.1.12"

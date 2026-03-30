@@ -18,6 +18,5 @@
 
 pub mod app;
 pub mod message;
-pub mod subscriptions;
 
 pub use app::OxideApp;

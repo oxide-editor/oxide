@@ -2570,13 +2570,8 @@ version = "0.1.0"
 dependencies = [
  "iced",
  "image",
- "oxide-core",
  "winres",
 ]
-
-[[package]]
-name = "oxide-core"
-version = "0.0.0"
 
 [[package]]
 name = "parking"

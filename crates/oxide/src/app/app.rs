@@ -16,36 +16,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-use iced::{Element, Task};
-use oxide_core::editor::Editor;
+use iced::{Element, Task, widget::text_editor};
 
 use crate::{app::message::Message, ui::components::editor::EditorView};
 
 pub struct OxideApp {
-    editor: Editor,
+    content: text_editor::Content,
 }
 
 impl Default for OxideApp {
     fn default() -> Self {
         Self {
-            editor: Editor::default(),
+            content: text_editor::Content::default()
         }
     }
 }
 
 impl OxideApp {
-    pub fn subscription(&self) -> iced::Subscription<Message> {
-        crate::app::subscriptions::keyboard_subscription()
-    }
-
     pub fn view(&self) -> Element<'_, Message> {
-        EditorView::new(&self.editor).view()
+        EditorView::new(&self.content).view()
     }
 
     pub fn update(&mut self, message: Message) -> Task<Message> {
-        let Message::Input(cmd) = message;
-        self.editor.apply_command(cmd);
-
-        Task::none()
+        match message {
+            Message::Edit(action) => {
+                self.content.perform(action);
+                Task::none()
+            }
+        }
     }
 }

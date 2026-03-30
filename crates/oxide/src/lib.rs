@@ -34,7 +34,6 @@ pub fn run() -> iced::Result {
         OxideApp::update,
         OxideApp::view,
     )
-    .subscription(|app: &OxideApp| app.subscription())
     .title(|_: &OxideApp| "Oxide".to_string())
     .window(window::Settings {
         min_size: Some(iced::Size::new(600.0, 700.0)),
