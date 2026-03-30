@@ -16,15 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Prevents the additional console window on Windows in release builds, DO NOT REMOVE!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+pub mod key;
+pub mod command;
 
-use oxide::run;
-
-fn main() {
-    // attempt to run the application
-    if let Err(e) = run() {
-        eprintln!("failed to initialize: {e:?}");
-        std::process::exit(1);
-    }
-}
+pub use key::Key;
+pub use command::{Command, key_to_command};

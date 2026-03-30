@@ -16,15 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Prevents the additional console window on Windows in release builds, DO NOT REMOVE!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+use crate::input::Key;
 
-use oxide::run;
+#[derive(Debug, Clone)]
+pub enum Command {
+    Insert(char),
+    Backspace,
+}
 
-fn main() {
-    // attempt to run the application
-    if let Err(e) = run() {
-        eprintln!("failed to initialize: {e:?}");
-        std::process::exit(1);
+pub fn key_to_command(key: Key) -> Option<Command> {
+    match key {
+        Key::Char(c) => Some(Command::Insert(c)),
+        Key::Backspace => Some(Command::Backspace),
     }
 }

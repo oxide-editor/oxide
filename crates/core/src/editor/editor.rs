@@ -16,15 +16,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Prevents the additional console window on Windows in release builds, DO NOT REMOVE!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+use crate::input::Command;
 
-use oxide::run;
+#[derive(Debug, Default)]
+pub struct Editor {
+    pub buffer: String,
+    pub cursor: usize,
+}
 
-fn main() {
-    // attempt to run the application
-    if let Err(e) = run() {
-        eprintln!("failed to initialize: {e:?}");
-        std::process::exit(1);
+impl Editor {
+    pub fn apply_command(&mut self, command: Command) {
+        match command {
+            Command::Insert(c) => self.insert_char(c),
+            Command::Backspace => self.delete_char(),
+        }
+    }
+
+    pub fn insert_char(&mut self, c: char) {
+        self.buffer.insert(self.cursor, c);
+        self.cursor += 1;
+    }
+
+    pub fn delete_char(&mut self) {
+        if self.cursor > 0 {
+            self.cursor -= 1;
+            self.buffer.remove(self.cursor);
+        }
     }
 }

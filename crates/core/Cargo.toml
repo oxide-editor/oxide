@@ -1,0 +1,5 @@
+[package]
+name = "oxide-core"
+edition = "2024"
+
+[dependencies]

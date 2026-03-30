@@ -16,6 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+use oxide_core::input::Command;
+
 #[derive(Debug, Clone)]
 pub enum Message {
+    Input(Command),
 }

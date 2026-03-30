@@ -16,15 +16,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Prevents the additional console window on Windows in release builds, DO NOT REMOVE!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+use iced::{
+    Element,
+    widget::{container, text},
+};
 
-use oxide::run;
+use oxide_core::editor::Editor as CoreEditor;
 
-fn main() {
-    // attempt to run the application
-    if let Err(e) = run() {
-        eprintln!("failed to initialize: {e:?}");
-        std::process::exit(1);
+use crate::app::message::Message;
+
+pub struct EditorView<'a> {
+    editor: &'a CoreEditor,
+}
+
+impl<'a> EditorView<'a> {
+    pub fn new(editor: &'a CoreEditor) -> Self {
+        Self { editor }
+    }
+
+    pub fn view(self) -> Element<'a, Message> {
+        // for now lets just render the raw buffer
+        // later we will implement lines, cursor, and whatever else
+        println!("{}", self.editor.buffer.as_str());
+        container(text(self.editor.buffer.as_str()))
+            .padding(10)
+            .into()
     }
 }

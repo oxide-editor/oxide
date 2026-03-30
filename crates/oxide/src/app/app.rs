@@ -16,15 +16,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Prevents the additional console window on Windows in release builds, DO NOT REMOVE!
-#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+use iced::{Element, Task};
+use oxide_core::editor::Editor;
 
-use oxide::run;
+use crate::{app::message::Message, ui::components::editor::EditorView};
 
-fn main() {
-    // attempt to run the application
-    if let Err(e) = run() {
-        eprintln!("failed to initialize: {e:?}");
-        std::process::exit(1);
+pub struct OxideApp {
+    editor: Editor,
+}
+
+impl Default for OxideApp {
+    fn default() -> Self {
+        Self {
+            editor: Editor::default(),
+        }
+    }
+}
+
+impl OxideApp {
+    pub fn subscription(&self) -> iced::Subscription<Message> {
+        crate::app::subscriptions::keyboard_subscription()
+    }
+
+    pub fn view(&self) -> Element<'_, Message> {
+        EditorView::new(&self.editor).view()
+    }
+
+    pub fn update(&mut self, message: Message) -> Task<Message> {
+        let Message::Input(cmd) = message;
+        self.editor.apply_command(cmd);
+
+        Task::none()
     }
 }
